@@ -1,0 +1,24 @@
+{
+    "additional_data":[
+ 
+        {
+           "docker_commands":["docker network inspect my-network >/dev/null 2>&1 || docker network create my-network","cd /efs/fims/replace_and_route/docker && pwd && docker build -t pg_db -f Dockerfile.db .","CID=$(docker ps -q --filter 'ancestor=pg_db:latest') && [ -n \"$CID\" ] && docker rm -f $CID || echo 'No container to remove'",
+           "docker run -d –-name pg_db –-network my-network -p 5432:5432  pg_db:latest ","cd /efs/fims/rnr_demo/replace_and_route && docker build -t rnr -f docker/Dockerfile.rnr .",
+        "cd /efs/fims/replace_and_route/data/rfc_channel_forcings && sudo rm -rf *.csv && cd /efs/fims/replace_and_route/ && docker run --rm --name rnr -v /efs/fims/replace_and_route/data:/data -v /efs/fims/replace_and_route/logs:/logs --network my-network rnr:latest"],
+           "flag":"fully"
+ 
+        }
+ 
+    ],
+   
+    "d_loc" : [
+               "~/HANDTEMP/10140101"
+
+               ],
+    "d_files":[
+               ["10140101_flowfile.csv","10140101_retro_inundation.tif"]
+            ]
+
+
+
+}
