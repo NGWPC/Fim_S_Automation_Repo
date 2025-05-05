@@ -95,7 +95,7 @@ def remove_directory():
 def read_csv():
     def _read_csv(folder_name , data_file, scenarios):
          scenario = scenarios(folder_name , data_file)
-         return scenario['additional_data'][0].get('csv_file') , scenario['additional_data'][0].get('output_csv_file')
+         return scenario['additional_data'][0].get('csv_file') , scenario['additional_data'][0].get('output_csv_file'), scenario['additional_data'][0].get('content_check'), scenario['additional_data'][0].get('number_of_lines')
     return _read_csv 
 
 @pytest.fixture
