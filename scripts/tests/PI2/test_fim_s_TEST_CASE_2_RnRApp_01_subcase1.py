@@ -13,5 +13,5 @@ def test_fim_s_TEST_CASE_2_RnRApp_01_subcase1(test_name,load_scenario_data,scena
     for docker_command in docker_commands:
          run_docker_script(folder_name,tn,scenarios,docker_command)
          print("The command ran successfully.")
-#     csv_file,output_csv_file ,content_check , num_of_lines = read_csv(folder_name,tn,scenarios)
-#     csv_util.test_extract_csv_data(os.path.expanduser(csv_file),os.path.expanduser(output_csv_file),content_check ,num_of_lines)
+    csv_file,output_csv_file ,content_check , num_of_lines = read_csv(folder_name,tn,scenarios)
+    csv_util.test_extract_csv_data(os.path.expanduser(csv_file),os.path.expanduser(output_csv_file),content_check ,num_of_lines)

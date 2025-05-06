@@ -1,0 +1,19 @@
+{
+    "additional_data":[
+ 
+        {
+           "docker_commands":["IMAGE_ID=$(docker images -q troute:latest) && echo 'Image exists' || (echo 'Building image...' && cd /efs/fims/replace_and_route/docker && docker build -t troute -f Dockerfile.troute .",
+           "export CURR_DATE=$(date +%Y-%m-%d)",
+           "sudo yq e '.start_datetime = strenv(CURR_DATE)' -i /efs/fims/replace_and_route/docker/troute.yaml", "./troute.sh -V4 -f troute.yaml"]
+         }
+    ],
+    "d_loc" : [
+               "/efs/fims/replace_and_route/output"
+               ],
+    "d_files":[
+               ["all_events.gpkg"]
+            ]
+
+
+
+}

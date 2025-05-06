@@ -13,10 +13,12 @@ def test_extract_csv_data(csv_file,output_csv_file,content_check,num_of_lines):
    try:
      if content_check == 'self':
          random_csv_file = fetch_random_csv_file(csv_file)
-         filename = os.path.basename(random_csv_file)
-         csv_head = read_csv_subsetrandom_csv_file,num_of_lines)
-         
-
+         random_csv_file_check = pd.read_csv(random_csv_file)
+         if random_csv_file_check.empty:
+            print("File is empty")
+         else:
+            records = len(random_csv_file_check)
+            print("Number of records in the file:"+str(records))
 
      else:
       pd.set_option('display.max_columns',None)
