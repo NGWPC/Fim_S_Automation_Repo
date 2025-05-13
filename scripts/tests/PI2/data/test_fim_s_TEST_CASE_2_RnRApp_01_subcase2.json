@@ -2,16 +2,18 @@
     "additional_data":[
  
         {
-           "docker_commands":["IMAGE_ID=$(docker images -q troute:latest) && echo 'Image exists' || (echo 'Building image...' && cd /efs/fims/replace_and_route/docker && docker build -t troute -f Dockerfile.troute .",
+           "docker_commands":[
+           "IMAGE_ID=$(docker images -q troute:latest); if [ -z \"$IMAGE_ID\" ]; then echo 'Image not found.Building...'; cd /efs/fims/replace_and_route/docker && docker build -t troute -f Dockerfile.troute .; else echo 'Image exists'; fi",
            "export CURR_DATE=$(date +%Y-%m-%d)",
-           "sudo yq e '.start_datetime = strenv(CURR_DATE)' -i /efs/fims/replace_and_route/docker/troute.yaml", "./troute.sh -V4 -f troute.yaml"]
+           "sudo env CURR_DATE=$(date +\"%Y-%m-%d_%H:%M\") /usr/local/bin/yq e '.compute_parameters.restart_parameters.start_datetime = strenv(CURR_DATE)' -i /efs/fims/replace_and_route/docker/troute.yaml", "cd /efs/fims/replace_and_route/docker && ./troute.sh -V4 -f troute.yaml"],
+           "flag":"partly"
          }
     ],
     "d_loc" : [
                "/efs/fims/replace_and_route/output"
                ],
     "d_files":[
-               ["all_events.gpkg"]
+               ["troute_output_202407021800.nc"]
             ]
 
 

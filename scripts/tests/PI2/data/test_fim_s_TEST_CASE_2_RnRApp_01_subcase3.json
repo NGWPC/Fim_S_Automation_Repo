@@ -1,0 +1,20 @@
+{
+    "additional_data":[
+ 
+        {
+         "docker_commands":[
+            "IMAGE_ID=$(docker images -q plot_troute:latest); if [ -z \"$IMAGE_ID\" ]; then echo 'Image not found.Building...'; cd /efs/fims/replace_and_route/ && docker build -t plot_troute -f docker/Dockerfile.viz .; else echo 'Image exists'; fi",
+            "cd /efs/fims/replace_and_route/output/plots && sudo rm -f *.png", "docker run --rm --name plot_troute -v /efs/fims/replace_and_route/output:/output plot_troute:latest"],
+            "flag":"partly"
+ 
+        }
+ 
+    ],
+    "d_loc" : [
+               "/efs/fims/replace_and_route/output/plots"
+               ],
+    "d_files":[
+               ["RFC_test_output_2128023.png","RFC_test_output_2129106.png","RFC_test_output_2130272.png"]
+            ]
+
+}

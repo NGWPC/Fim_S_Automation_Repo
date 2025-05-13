@@ -13,16 +13,6 @@
  
         }
  
-    ],
-   
-    "d_loc" : [
-               "~/HANDTEMP/10140101"
-
-               ],
-    "d_files":[
-               ["10140101_flowfile.csv","10140101_retro_inundation.tif"]
-            ]
-
-
+    ]
 
 }

@@ -1,0 +1,14 @@
+{
+    "additional_data":[
+ 
+        {
+           "url":"http://localhost:8000/api/v1/publish/start/CAGM7",
+           "headers":{ "Content-Type": "application/json"},
+           "request_type":"GET"       
+        }
+ 
+    ]
+
+
+
+}
