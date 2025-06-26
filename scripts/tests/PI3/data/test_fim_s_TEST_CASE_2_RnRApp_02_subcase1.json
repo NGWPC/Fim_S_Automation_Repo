@@ -1,0 +1,17 @@
+{
+    "additional_data":[
+ 
+        {  
+            "docker_commands":[
+                                "cd /efs/fims/pi_3/rise && pwd && docker compose up -d --build && sleep 600"],
+           "url":"http://localhost:8000/api/v1/publish/start/CAGM7",
+
+           "headers":{ "Content-Type": "application/json"},
+           "request_type":"GET"       
+        }
+ 
+    ]
+
+
+
+}

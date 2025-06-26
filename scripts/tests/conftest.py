@@ -187,14 +187,14 @@ def fetch_directory_details():
 
 @pytest.fixture
 def run_curl_command_post():
-    def _run_curl_command(folder_name,data_file,scenarios):
+    def _run_curl_command_post(folder_name,data_file,scenarios):
          scenario = scenarios(folder_name , data_file)
          return scenario['additional_data'][0].get('url') , scenario['additional_data'][0].get('headers') , scenario['additional_data'][0].get('data'),scenario['additional_data'][0].get('destination_response_location')
     return _run_curl_command_post
 
 @pytest.fixture
 def run_curl_command_get():
-    def _run_curl_command(folder_name,data_file,scenarios):
+    def _run_curl_command_get(folder_name,data_file,scenarios):
          scenario = scenarios(folder_name , data_file)
          return scenario['additional_data'][0].get('url') , scenario['additional_data'][0].get('headers') , scenario['additional_data'][0].get('request_type')
     return _run_curl_command_get

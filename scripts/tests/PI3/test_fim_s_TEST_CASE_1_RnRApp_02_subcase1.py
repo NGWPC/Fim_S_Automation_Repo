@@ -1,7 +1,7 @@
 
 import pytest
 import os
-from ..helpers import validate_response
+from ..helpers import validate_get_response
 
 # @pytest.mark.skip(reason="skipping this test for now")
 def test_fim_s_TEST_CASE_1_RnRApp_02_subcase1(test_name,load_scenario_data,scenarios,fetch_docker_details,run_docker_script,run_curl_command_get):
@@ -14,4 +14,5 @@ def test_fim_s_TEST_CASE_1_RnRApp_02_subcase1(test_name,load_scenario_data,scena
          run_docker_script(folder_name,tn,scenarios,docker_command)
          print("The command ran successfully.")
     url,headers,request_type = run_curl_command_get(folder_name,tn,scenarios)
-    validate_response(url,headers,data,os.path.expanduser(destination_response_location))
+    out=validate_get_response(url,headers,data,request_type)
+    print(out)
