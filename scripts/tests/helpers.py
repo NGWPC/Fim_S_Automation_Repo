@@ -9,13 +9,16 @@ import requests
 import nbformat
 import papermill as pm
 
+import base64
+import hashlib
+
 
 JUPYTER_URL = "http://localhost:8888"
-NOTEBOOK_PATH = "notebooks/02_post_process.ipynb"
+NOTEBOOK_PATH = "notebooks/01_build_sfincs_from_nwm.ipynb"
 TOKEN = ''
-DOWNLOADED_NOTEBOOK_PATH = "/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI3/data/notebooks/downloaded_notebook.ipynb"
+DOWNLOADED_NOTEBOOK_PATH = "/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI3/data/auto_notebooks/downloaded_notebook2.ipynb"
 
-def test_download_notebook():
+def download_notebook():
     api_url = f"{JUPYTER_URL}/api/contents/{NOTEBOOK_PATH}"
     headers = {"Authorization":f"Token {TOKEN}"} if TOKEN else {}
     response = requests.get(api_url, headers=headers)
@@ -78,6 +81,58 @@ def validate_get_response(link,headers,request_type):
    
     
    
+def hash_image_base64(b64):
+   try:
+      return hashlib.sha256(base64.b64decode(b64)).hexdigest()
+   except Exception:
+      return None
 
+def clean_output(output):
+   if "data" in output and "image/png" in output["data"]:
+      output = output.copy()
+      output["data"]["image/png"] = hash_image_base64(output["data"]["image/png"])
+   return output
+
+def normalize_outputs(outputs):
+   return [clean_output(o) for o in outputs]
+
+def compare_notebooks(nb1_path, nb2_path , skip_indices=None):
+   skip_indices = set(skip_indices or [])
+
+   nb1 = nbformat.read(nb1_path, as_version=4)
+   nb2 = nbformat.read(nb2_path, as_version=4)
+
+   cells1 = nb1.cells
+   cells2 = nb2.cells
+   print(len(cells1))
+   print(len(cells2))
+   if len(cells1) != len(cells2) :
+      print("Notebooks cells count differ")
+      return False
+
+   for i , (c1,c2) in enumerate(zip(cells1, cells2)):
+      if i in skip_indices:
+         print(f"Skipping {i}")
+         continue
+      if c1["cell_type"] != c2["cell_type"]:
+         print(f"Mismatch in cell type for cell {i}")
+
+      if c1["source"].strip() != c2["source"].strip():
+         print(f"Mismatch in source  cell {i}")
+
+      output1 = normalize_outputs(c1.get("outputs", []))
+      output2 = normalize_outputs(c2.get("outputs", []))
+      if i == 3:
+            print(output1)
+            print(output2)
+      if output1 != output2 :
+         print(f"Mismatch in outputs at cell {i}")
+         if i == 5 :
+            print(output1)
+            print(output2)
+         return False
+   print("Notebooks match")
+   return True
+   
 
    

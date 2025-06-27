@@ -1,7 +1,7 @@
 
 import pytest
 import os
-from ..helpers import validate_get_response,test_download_notebook
+from ..helpers import validate_get_response,download_notebook,compare_notebooks
 
 # @pytest.mark.skip(reason="skipping this test for now")
 def test_fim_s_TEST_CASE_2_RnRApp_02_subcase1(test_name,load_scenario_data,scenarios,fetch_docker_details,run_docker_script,run_curl_command_get):
@@ -18,4 +18,8 @@ def test_fim_s_TEST_CASE_2_RnRApp_02_subcase1(test_name,load_scenario_data,scena
 #     url,headers,request_type = run_curl_command_get(folder_name,tn,scenarios)
 #     out=validate_get_response(url,headers,data,request_type)
 #     print(out)
-test_download_notebook()
+# test_download_notebook()
+nb1_path = "/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI3/data/auto_notebooks/downloaded_notebook.ipynb"
+nb2_path = "/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI3/data/auto_notebooks/output.ipynb"
+skip_indices = []
+compare_notebooks(nb1_path,nb2_path,skip_indices)
