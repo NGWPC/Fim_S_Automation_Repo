@@ -45,7 +45,14 @@ def run_shell_script_from_directory():
      except subprocess.CalledProcessError as e:
         print("Error:",e.stderr)
         raise e
-    return _run_shell_script_from_directory    
+    return _run_shell_script_from_directory   
+
+@pytest.fixture
+def run_R_Scripts():
+    def _run_R_scripts(folder_name,data_file, scenarios):
+
+
+    return _run_R_scripts 
 
 @pytest.fixture
 def change_dir(run_shell_script):
