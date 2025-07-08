@@ -49,9 +49,16 @@ def run_shell_script_from_directory():
 
 @pytest.fixture
 def run_R_Scripts():
-    def _run_R_scripts(folder_name,data_file, scenarios):
-
-
+    def _run_R_scripts(folder_name,data_file, scenarios,command):
+        try:
+            result =  subprocess.run(command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , shell = True , check = True, executable ="/usr/bin/bash")
+            print(result.stdout.strip())
+            print(result.stderr)     
+            return result.stdout.strip()
+        except subprocess.CalledProcessError as e:
+            pytest.fail(f"Docker command failed : {e}")
+            print(result.stderr)
+            raise e
     return _run_R_scripts 
 
 @pytest.fixture
@@ -166,9 +173,10 @@ def fetch_docker_details():
 def run_docker_script():
     def _run_docker_script(folder_name,data_file, scenarios,docker_command):
         try:
-            result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , shell = True , check = True, executable ="/usr/bin/bash")
+            result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True)
             print(result.stdout.strip())
-            print(result.stderr)     
+            print(result.stderr)   
+            print('I am here')  
             return result.stdout.strip()
         except subprocess.CalledProcessError as e:
             pytest.fail(f"Docker command failed : {e}")

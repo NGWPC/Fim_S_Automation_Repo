@@ -1,0 +1,19 @@
+{
+    "additional_data":[
+ 
+        {
+         "docker_commands":["sudo" ,"R","--vanilla","-q","-e","library(hfsubsetR)"],
+         "remove_files":"/efs/fims/pi_5/hfsubsetR/data/jrb_path_3.gpkg",
+         "flag":"partly"
+ 
+        }
+ 
+    ],
+    "d_loc" : [
+               "/efs/fims/pi_5/hfsubsetR/data"
+               ],
+    "d_files":[
+               ["jrb_path_3.gpkg"]
+            ]
+
+}
