@@ -1,0 +1,13 @@
+{
+    "additional_data":[
+ 
+        {
+         "docker_commands":["bash -c 'cd /efs/fims/pi_5/hml_reader && docker compose -f docker/compose.yaml up -d  && uv venv && source .venv/bin/activate && uv pip install -e . && python scripts/read_hml.py > ~/pw/automation/scripts/tests/PI5/data/output.txt'"],
+         "text" : ["Successfully connected to RabbitMQ","reading through api.weather.gov HML outputs: 100%|","5000/5000"],
+         "flag":"partly"
+ 
+        }
+ 
+    ]
+
+}
