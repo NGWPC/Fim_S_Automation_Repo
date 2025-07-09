@@ -2,8 +2,9 @@
     "additional_data":[
  
         {
-         "docker_commands":["sudo" ,"R","--vanilla","-q","-e","library(hfsubsetR)"],
+         "docker_commands":["/usr/bin/Rscript -e 'library(hfsubsetR); print(\"Loaded\"); hfsubsetR::get_shortest_path(start_id=4699143, end_id=4700053, gpkg=\"/efs/fims/pi_5/hfsubsetR/data/juniata_river_basin.gpkg\", filename=\"jrb_path_3\")  '"],
          "remove_files":"/efs/fims/pi_5/hfsubsetR/data/jrb_path_3.gpkg",
+         "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
          "flag":"partly"
  
         }
