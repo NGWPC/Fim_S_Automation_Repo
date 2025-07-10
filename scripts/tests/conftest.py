@@ -168,6 +168,12 @@ def fetch_docker_details():
          return scenario['additional_data'][0].get('docker_commands'),scenario['additional_data'][0].get('remove_files')
     return _fetch_docker_details
 
+@pytest.fixture
+def fetch_txt_details():
+    def _fetch_txt_details(folder_name , data_file, scenarios):
+         scenario = scenarios(folder_name , data_file)
+         return scenario['additional_data'][0].get('text'),scenario['additional_data'][0].get('remove_files')
+    return _fetch_txt_details
 
 @pytest.fixture
 def run_docker_script():
@@ -181,7 +187,9 @@ def run_docker_script():
             print('I am here')
             if "5000/5000" in  result.stderr :
                 print('I am here 2')
-                with open("/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI5/data/stderr_output.txt","w", encoding="utf-8") as f :
+                output_dir = os.path.expanduser("~/pw/automation/scripts/tests/PI5/data")
+                os.makedirs(output_dir , exist_ok=True)
+                with open(os.path.join(output_dir, "stderr_output.txt"),"w", encoding="utf-8") as f :
                     f.write(result.stderr)
 
 
