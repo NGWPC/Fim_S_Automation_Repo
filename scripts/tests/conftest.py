@@ -180,19 +180,13 @@ def run_docker_script():
     def _run_docker_script(folder_name,data_file, scenarios,docker_command):
         try:
             result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
-            print('this is stdout')
             print(result.stdout.strip())
-            print('this is stderr')
             print(result.stderr)   
-            print('I am here')
             if "5000/5000" in  result.stderr :
-                print('I am here 2')
                 output_dir = os.path.expanduser("~/pw/automation/scripts/tests/PI5/data")
                 os.makedirs(output_dir , exist_ok=True)
                 with open(os.path.join(output_dir, "stderr_output.txt"),"w", encoding="utf-8") as f :
                     f.write(result.stderr)
-
-
             return result.stdout.strip()
         except subprocess.CalledProcessError as e:
             pytest.fail(f"Docker command failed : {e}")

@@ -15,5 +15,5 @@ def test_fim_s_TEST_CASE_1_FIMS_HFSubset_subcase2(test_name,load_scenario_data,s
     for txt, dir_path in zip(text,[os.path.expanduser(each_dir_path_file) for each_dir_path_file in dir_paths ]):
           txt_file_validation_util.txt_file_validation(txt,dir_path)
     for dir_path in dir_paths :
-         remove_file(folder_name,tn,dir_path,scenarios)
+         remove_file(folder_name,tn,os.path.expanduser(dir_path),scenarios)
     
