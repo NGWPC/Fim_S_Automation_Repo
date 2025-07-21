@@ -14,20 +14,27 @@ def extract_images(path, tag_name = 'compare_image'):
                 if output.output_type in ("display_data", "execute_result"):
                     img_details = output.data.get("image/png")
                     if img_details:
-                        img = Image.open(io.BytesIO(base64.b64decode(img_details)))
+                        img = Image.open(io.BytesIO(base64.b64decode(img_details)))                      
                         images.append(img)
+
+        # else:
+        #     print("No such cells found")
     return images
 
 def compare_images(img1,img2):
     diff = ImageChops.difference(img1,img2)
     return diff.getbbox() is None
 
-output_image1 = extract_images("/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI4/data/output.ipynb") 
-output_image2 = extract_images("/home/jyoti.mikkilineni/Downloads/run_v22(1).ipynb")   
 
-for i, (img1,img2) in enumerate(zip(output_image1, output_image2)):
-    is_same = compare_images(img1,img2)
-    print(f"plot {i}:{'Match' if is_same else 'Different'}")
+def image_differences():
+    output_image1 = extract_images("/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI4/data/run_v22_output.ipynb") 
+    output_image2 = extract_images("/fsxtestautomation/data_files/fims-data/run_v22.ipynb")   
+
+    for i, (img1,img2) in enumerate(zip(output_image1, output_image2)):
+        is_same = compare_images(img1,img2)
+        print(f"plot {i}:{'Match' if is_same else 'Different'}")
+
+
 # def list_cells(notebook_path):
     
 #     with open(notebook_path , 'r' , encoding='utf-8') as f:
@@ -39,6 +46,6 @@ for i, (img1,img2) in enumerate(zip(output_image1, output_image2)):
 #         has_output = bool(cell.get("outputs"))
 #         print(f"Index: {i} | Type: {cell_type} | Tags:{tags} | Has Output: {has_output}")
 
-# list_cells("/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI4/data/run_v22_executed.ipynb")
+# list_cells("/fsxtestautomation/data_files/fims-data/run_v22.ipynb")
 
 

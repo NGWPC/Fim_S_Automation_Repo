@@ -1,0 +1,23 @@
+{
+    "additional_data":[
+ 
+        {  
+            "docker_commands":[
+                                "cd /efs/fims/pi_4/t-route/ && docker build -t troute-notebook -f  docker/Dockerfile.notebook .", 
+                                "docker run -d -p 8000:8000 troute-notebook" , 
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=troute-notebook') bash -c 'mkdir /t-route/auto'",
+                                "sudo docker cp /fsxtestautomation/data_files/fims-data/run_v22_input.ipynb  $(docker ps -q --filter 'ancestor=troute-notebook'):/t-route/auto/",
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=troute-notebook') bash -c 'pip install papermill Pillow nbformat && papermill /t-route/auto/run_v22_input.ipynb /t-route/auto/run_v22_output.ipynb > /t-route/auto/log.txt && cd /t-route/auto/ && ls -ltr'" ,
+                                "sudo docker cp $(docker ps -q --filter 'ancestor=troute-notebook'):/t-route/auto/run_v22_output.ipynb  /home/jyoti.mikkilineni/pw/automation/scripts/tests/PI4/data && exit"
+                            ],
+           "url":"http://localhost:8000/api/v1/publish/start/CAGM7",
+
+           "headers":{ "Content-Type": "application/json"},
+           "request_type":"GET"       
+        }
+ 
+    ]
+
+
+
+}
