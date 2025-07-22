@@ -1,0 +1,13 @@
+{
+    "status":200,
+    "summary":{"total":1,"success":1,"no_forecast":0,"api_error":0,"validation_error":0},
+    "results":[
+                {
+                    "status":"success",
+                    "lid":"CAGM7",
+                    "error_type":null,
+                    "error_message":null,
+                    "status_code":null
+                }
+              ]
+} 

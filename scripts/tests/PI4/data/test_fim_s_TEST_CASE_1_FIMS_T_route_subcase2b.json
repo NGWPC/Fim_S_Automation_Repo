@@ -3,20 +3,23 @@
  
         {  
             "docker_commands":[
-                                "cd /efs/fims/pi_4/t-route/ && docker build -t troute-notebook -f  docker/Dockerfile.notebook .", 
-                                "docker run -d -p 8000:8000 troute-notebook" , 
-                                "sudo docker exec $(docker ps -q --filter 'ancestor=troute-notebook') bash -c 'mkdir /t-route/auto'",
-                                "sudo docker cp /fsxtestautomation/data_files/fims-data/run_v22_input.ipynb  $(docker ps -q --filter 'ancestor=troute-notebook'):/t-route/auto/",
-                                "sudo docker exec $(docker ps -q --filter 'ancestor=troute-notebook') bash -c 'pip install papermill Pillow nbformat && papermill /t-route/auto/run_v22_input.ipynb /t-route/auto/run_v22_output.ipynb > /t-route/auto/log.txt 2>&1'" ,
-                                "sudo docker cp $(docker ps -q --filter 'ancestor=troute-notebook'):/t-route/auto/run_v22_output.ipynb  ~/pw/automation/scripts/tests/PI4/data && sudo docker cp $(docker ps -q --filter 'ancestor=troute-notebook'):/t-route/auto/log.txt  ~/pw/automation/scripts/tests/PI4/data && exit"
-                            ],
-            "text" : "Executing: 100%|██████████| 16/16",
-            "output_notebook_location": "~/pw/automation/scripts/tests/PI4/data/run_v22_output.ipynb",
-            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/run_v22.ipynb",
-            "remove_files":"~/pw/automation/scripts/tests/PI4/data/log.txt"
+                                
+                                " cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/rfc_channel_forcings/&& sudo rm -rf *&&  cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/replace_and_route && sudo rm -rf *&& cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/troute_output &&  sudo rm -rf *&&  cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/plots && sudo rm -rf *"],
+           "url":"http://localhost:8000/api/v1/publish/start/CAGM7",
+           "data":"",
+           "headers":{ "Content-Type": "application/json"},
+           "destination_response_location":"/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI4/data/destination_response_location",
+           "request_type":"POST"       
         }
  
-    ]
+    ],
+    "d_loc" : [
+        "/efs/fims/"
+        ],
+    "d_files":[
+        ["troute_output_202407021800.nc","troute_output_202505091500.nc"]
+     ]
+
 
 
 
