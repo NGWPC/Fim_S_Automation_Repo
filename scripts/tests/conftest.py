@@ -246,3 +246,11 @@ def fetch_stac_ui_details():
         scenario = scenarios(folder_name , data_file)
         return scenario['additional_data'][0].get("link") , scenario['additional_data'][0].get("item")
     return _fetch_stac_ui_details
+
+
+@pytest.fixture
+def fetch_notebook_location_details():
+    def _fetch_notebook_location_details(folder_name,data_file,scenarios):
+        scenario = scenarios(folder_name , data_file)
+        return scenario['additional_data'][0].get("input_notebook_location") , scenario['additional_data'][0].get("output_notebook_location")
+    return _fetch_notebook_location_details

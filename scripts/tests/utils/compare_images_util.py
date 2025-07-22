@@ -7,8 +7,10 @@ def extract_images(path, tag_name = 'compare_image'):
     with open(path) as f:
         nb = nbformat.read(f, as_version=4)
     images=[]
+    tagged_cells_exist = False
     for cell in nb.cells:
         if cell.cell_type == "code" and tag_name in cell.get("metadata", {}).get("tags", []):
+            tagged_cells_exist = True
             outputs = cell.get("outputs", [])
             for output in outputs:
                 if output.output_type in ("display_data", "execute_result"):
@@ -17,8 +19,8 @@ def extract_images(path, tag_name = 'compare_image'):
                         img = Image.open(io.BytesIO(base64.b64decode(img_details)))                      
                         images.append(img)
 
-        # else:
-        #     print("No such cells found")
+    assert tagged_cells_exist , f"No tagged cell exist for {path}"
+    assert images, f"Tagged cells exist but no images were found in {path}"
     return images
 
 def compare_images(img1,img2):
@@ -26,14 +28,19 @@ def compare_images(img1,img2):
     return diff.getbbox() is None
 
 
-def image_differences():
-    output_image1 = extract_images("/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI4/data/run_v22_output.ipynb") 
-    output_image2 = extract_images("/fsxtestautomation/data_files/fims-data/run_v22.ipynb")   
+def image_differences(input_notebook_location,output_notebook_location):
+    output_image1 = extract_images(output_notebook_location) 
+    output_image2 = extract_images(input_notebook_location)   
 
     for i, (img1,img2) in enumerate(zip(output_image1, output_image2)):
         is_same = compare_images(img1,img2)
-        print(f"plot {i}:{'Match' if is_same else 'Different'}")
-
+        if is_same:
+            print(f"plot {i}:Match")
+        else:
+            diff = diff = ImageChops.difference(img1,img2)
+            img_diff_path = f"diff_plot_{i}.png"
+            diff.save(img_diff_path)
+            assert False , f"Plot {i} differs" 
 
 # def list_cells(notebook_path):
     
