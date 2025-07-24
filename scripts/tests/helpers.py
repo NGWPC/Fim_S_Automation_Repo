@@ -89,6 +89,7 @@ def validate_post_response(link,headers,data,destination_response_location):
          response.raise_for_status()
          if response.status_code == 200:
             source_response = response.json()
+            print(source_response)
          return source_response
       except requests.exceptions.HTTPError as errh:
          print(f"Bad response: {response.status_code}")

@@ -254,3 +254,10 @@ def fetch_notebook_location_details():
         scenario = scenarios(folder_name , data_file)
         return scenario['additional_data'][0].get("input_notebook_location") , scenario['additional_data'][0].get("output_notebook_location")
     return _fetch_notebook_location_details
+
+@pytest.fixture
+def fetch_dynamic_files_from_directory():
+    def _fetch_dynamic_files_from_directory(folder_name,data_file,scenarios):
+        scenario = scenarios(folder_name , data_file)
+        return scenario['additional_data'][0].get("input_notebook_location") , scenario['additional_data'][0].get("output_notebook_location")
+    return _fetch_dynamic_files_from_directory

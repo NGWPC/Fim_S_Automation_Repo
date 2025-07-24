@@ -13,6 +13,7 @@ def test_extract_csv_data(csv_file,output_csv_file,content_check,num_of_lines):
    try:
      if content_check == 'self':
          random_csv_file = fetch_random_csv_file(csv_file)
+         print(random_csv_file)
          random_csv_file_check = pd.read_csv(random_csv_file)
          if random_csv_file_check.empty:
             print("File is empty")
