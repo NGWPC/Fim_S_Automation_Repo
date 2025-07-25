@@ -10,14 +10,16 @@
            "headers":{ "Content-Type": "application/json"},
            "destination_response_location":"/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI4/data/destination_response_location",
            "request_type":"POST",
-           "csv_file":"/efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/rfc_channel_forcings/v2.2/CAGM7",
+           "csv_file":"/efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/rfc_channel_forcings/v2.2/CAGM7/",
            "output_csv_file":"",
            "flag":"fully",
            "content_check":"self",
            "number_of_lines":5,
            "csv_time_stamp":["0000","0600","1200","1800"],
-           "nc_time_stamp":["0000","0100","0200","0300","0400"],
-           "png_time_stamp":[""]     
+           "nc_time_stamp":["0000","0100","0200","0300","0400","0500","0600","0700","0800","0900","1000","1100","1200","1300"],
+           "image_file_path":"/efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/plots/CAGM7/",
+           "nc_files_base_path":"/efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/troute_output/CAGM7/"
+           
         }
  
     ],

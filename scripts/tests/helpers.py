@@ -12,6 +12,9 @@ import papermill as pm
 import base64
 import hashlib
 
+import pytest
+from datetime import datetime, timedelta
+
 
 JUPYTER_URL = "http://localhost:8888"
 NOTEBOOK_PATH = "notebooks/01_build_sfincs_from_nwm.ipynb"
@@ -160,6 +163,28 @@ def compare_notebooks(nb1_path, nb2_path , skip_indices=None):
          return False
    print("Notebooks match")
    return True
+
+def fetch_generate_dynamic_files(csv_file,nc_files_base_path,csv_time_stamp,nc_time_stamp,image_file_path):
+   
+   dates = [datetime.today() + timedelta(days=i) for i in range(1,10)]
+   start_date = datetime.today() + timedelta(days=0)
+   end_date = start_date + timedelta(days=14)
+   filenames = []
+   for dt in dates:
+     for time_str in csv_time_stamp:
+      filenames.append((f"{csv_file}{dt.strftime('%Y%m%d')}{time_str}.CHRTOUT_DOMAIN1.csv","csv"))
+     for time_str1 in nc_time_stamp:
+      filenames.append((f"{nc_files_base_path}troute_output_{dt.strftime('%Y%m%d')}{time_str1}.nc","nc"))
+   filenames.append((f"{image_file_path}RFC_plot_output_CAGM7_{start_date.strftime('%Y%m%d')}_{end_date.strftime('%Y%m%d')}.png","png"))
+   return filenames
+
+def file_exists_and_not_empty(file_path,file_type):
+   assert os.path.exists(file_path) , f"{file_type.upper()} file missing : {file_path}"
+   assert os.path.getsize(file_path)>0 , f"{file_type.upper()} file is empty : {file_path}"
+
+
+
+
    
 
    

@@ -259,5 +259,12 @@ def fetch_notebook_location_details():
 def fetch_dynamic_files_from_directory():
     def _fetch_dynamic_files_from_directory(folder_name,data_file,scenarios):
         scenario = scenarios(folder_name , data_file)
-        return scenario['additional_data'][0].get("input_notebook_location") , scenario['additional_data'][0].get("output_notebook_location")
+        return scenario['additional_data'][0].get("csv_file") , scenario['additional_data'][0].get("csv_time_stamp"), scenario['additional_data'][0].get('nc_time_stamp'),scenario['additional_data'][0].get('nc_files_base_path'),scenario['additional_data'][0].get('image_file_path')
+    return _fetch_dynamic_files_from_directory
+
+@pytest.fixture
+def fetch_image_file_details():
+    def _fetch_dynamic_files_from_directory(folder_name,data_file,scenarios):
+        scenario = scenarios(folder_name , data_file)
+        return scenario['additional_data'][0].get("image_file_path")
     return _fetch_dynamic_files_from_directory
