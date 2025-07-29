@@ -4,6 +4,7 @@ import csv
 import pytest
 import random
 import logging
+import time
 
 
 def preprocess_df(df):
@@ -41,13 +42,14 @@ def test_extract_csv_data(csv_file,output_csv_file,content_check,num_of_lines):
    except pd.errors.EmptyDataError:
    #   print("CSV file is empty")
      logging.error(f"CSV file is empty: {csv_file}")
-   except FileNotFounderror:
+   except FileNotFoundError:
    #   print("File was not found")
      logging.error(f"File not found: {csv_file}")
 
 
 def fetch_random_csv_file(dir):
    csv_files = []
+   wait_for_directory_existence(dir,timeout = 360 , interval = 2)
    for f in os.listdir(dir):
       if f.lower().endswith('.csv') and os.path.isfile(os.path.join(dir,f)):
          csv_files.append(f)
@@ -66,3 +68,11 @@ def read_csv_subset(filepath,num_lines=5):
          if counter>=num_lines:
             break
    return rows
+
+def wait_for_directory_existence(dir_path, timeout = 360 , interval = 2):
+   start_time = time.time()
+   while not os.path.isdir(dir_path):
+      if time.time() - start_time > timeout:
+         raise TimeoutError(f"Directory {dir_path} did not exist within {timeout}")
+      time.sleep(interval)
+   print(f"{dir_path} is available")

@@ -3,7 +3,7 @@
  
         {  
             "docker_commands":[
-                                "cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR && sudo docker compose up -d && sleep 1200",
+                                "cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR && sudo docker compose up -d && sleep 1500",
                                 " cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/rfc_channel_forcings/&& sudo rm -rf *&&  cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/replace_and_route && sudo rm -rf *&& cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/troute_output &&  sudo rm -rf *&&  cd /efs/fims/pi_4/v2.2_RnR_verification/hydrovis/Source/RnR/data/plots && sudo rm -rf *"],
            "url":"http://localhost:8000/api/v1/publish/start/CAGM7",
            "data":"",

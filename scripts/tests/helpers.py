@@ -14,6 +14,8 @@ import hashlib
 
 import pytest
 from datetime import datetime, timedelta
+from .utils.csv_util import wait_for_directory_existence
+
 
 
 JUPYTER_URL = "http://localhost:8888"
@@ -174,7 +176,9 @@ def fetch_generate_dynamic_files(csv_file,nc_files_base_path,csv_time_stamp,nc_t
      for time_str in csv_time_stamp:
       filenames.append((f"{csv_file}{dt.strftime('%Y%m%d')}{time_str}.CHRTOUT_DOMAIN1.csv","csv"))
      for time_str1 in nc_time_stamp:
+      wait_for_directory_existence(nc_files_base_path,timeout = 360 , interval = 2)
       filenames.append((f"{nc_files_base_path}troute_output_{dt.strftime('%Y%m%d')}{time_str1}.nc","nc"))
+   wait_for_directory_existence(image_file_path,timeout = 360 , interval = 2)
    filenames.append((f"{image_file_path}RFC_plot_output_CAGM7_{start_date.strftime('%Y%m%d')}_{end_date.strftime('%Y%m%d')}.png","png"))
    return filenames
 
