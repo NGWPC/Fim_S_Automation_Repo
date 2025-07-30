@@ -179,6 +179,7 @@ def fetch_txt_details():
 def run_docker_script():
     def _run_docker_script(folder_name,data_file, scenarios,docker_command):
         try:
+            print(f"Running :{docker_command}")
             result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
             print(result.stdout.strip())
             print(result.stderr)   

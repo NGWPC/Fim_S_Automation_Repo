@@ -1,0 +1,19 @@
+{
+    "additional_data":[
+ 
+        {  
+            "docker_commands":[
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./start.sh" ,"cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_ingest.sh > ~/pw/automation/scripts/tests/PI6/data/stdout_output.txt 2>&1"
+                            ],
+            "text" : "reading through api.weather.gov HML outputs: 100%|██████████| 5000/5000",
+            "remove_files": "~/pw/automation/scripts/tests/PI6/data/stdout_output.txt",
+            "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
+            "output_notebook_location": "~/pw/automation/scripts/tests/PI4/data/run_v22_output.ipynb",
+            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/run_v22.ipynb"
+        }
+ 
+    ]
+
+
+
+}
