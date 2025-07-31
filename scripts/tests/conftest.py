@@ -178,16 +178,27 @@ def fetch_txt_details():
 @pytest.fixture
 def run_docker_script():
     def _run_docker_script(folder_name,data_file, scenarios,docker_command):
+        result = None
         try:
-            print(f"Running :{docker_command}")
-            result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
-            print(result.stdout.strip())
-            print(result.stderr)   
+            if './run_post_process.sh' in docker_command:
+                print(f"Running :{docker_command}")
+                result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
+                print(result.stdout.strip())
+                print(result.stderr)
+                while "Processing complete! Results saved to" not in result.stdout.strip():
+                    result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
+
+            else:
+                print(f"Running :{docker_command}")
+                result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
+                print(result.stdout.strip())
+                print(result.stderr)   
             if "5000/5000" in  result.stderr :
                 output_dir = os.path.expanduser("~/pw/automation/scripts/tests/PI5/data")
                 os.makedirs(output_dir , exist_ok=True)
                 with open(os.path.join(output_dir, "stderr_output.txt"),"w", encoding="utf-8") as f :
                     f.write(result.stderr)
+              
             return result.stdout.strip()
         except subprocess.CalledProcessError as e:
             pytest.fail(f"Docker command failed : {e}")
