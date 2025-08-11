@@ -185,14 +185,18 @@ def run_docker_script():
                 result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
                 print(result.stdout.strip())
                 print(result.stderr)
-                while "Processing complete! Results saved to" not in result.stdout.strip():
-                    result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
+                # while "Processing complete! Results saved to" not in result.stdout.strip():
+                #     result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
 
             else:
                 print(f"Running :{docker_command}")
                 result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
+                print("This is stdout start")
                 print(result.stdout.strip())
-                print(result.stderr)   
+                print("This is stdout end")
+                print("This is stderr start")
+                print(result.stderr)  
+                print("This is stderr end") 
             if "5000/5000" in  result.stderr :
                 output_dir = os.path.expanduser("~/pw/automation/scripts/tests/PI5/data")
                 os.makedirs(output_dir , exist_ok=True)

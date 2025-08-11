@@ -3,7 +3,7 @@
  
         {  
             "docker_commands":[
-                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./start.sh" ,"cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_ingest.sh > ~/pw/automation/scripts/tests/PI6/data/stdout_output.txt 2>&1","cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_rnr.sh --num-hml-files 50","cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_post_process.sh > ~/pw/automation/scripts/tests/PI6/data/post_process_output.txt 2>&1"
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./start.sh" ,"cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_ingest.sh > ~/pw/automation/scripts/tests/PI6/data/stdout_output.txt 2>&1","cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_rnr.sh --num-hml-files 50","cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_post_process.sh > ~/pw/automation/scripts/tests/PI6/data/post_process_output.txt 2>&1","python3 /home/jyoti.mikkilineni/pw/automation/scripts/tests/utils/test_abc.py"
                             ],
             "text" : "reading through api.weather.gov HML outputs: 100%|██████████| 5000/5000",
             "remove_files": "~/pw/automation/scripts/tests/PI6/data/stdout_output.txt",
