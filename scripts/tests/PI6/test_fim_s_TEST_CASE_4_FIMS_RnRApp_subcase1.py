@@ -13,8 +13,6 @@ def test_fim_s_TEST_CASE_4_FIMS_RnRApp_subcase1(test_name,load_scenario_data,sce
          print("The command ran successfully.")
     text,dir_paths = fetch_txt_details(folder_name,tn,scenarios)
     txt_file_validation_util.txt_file_validation(text,os.path.expanduser(dir_paths))
-    # text,dir_paths = fetch_txt_details(folder_name,tn,scenarios)
-    # txt_file_validation_util.txt_file_validation(text,os.path.expanduser(dir_paths))
-    # input_notebook_location, output_notebook_location = fetch_notebook_location_details(folder_name,tn,scenarios)
-    # compare_images_util.image_differences(input_notebook_location,os.path.expanduser(output_notebook_location))
-
+    input_notebook_location, output_notebook_location = fetch_notebook_location_details(folder_name,tn,scenarios)
+    compare_images_util.verify_gdf_output(os.path.expanduser(output_notebook_location),tag_name = 'compare_image')
+    compare_images_util.verify_table_fields(os.path.expanduser(output_notebook_location),tag_name = 'table_validation')

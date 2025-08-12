@@ -3,13 +3,24 @@
  
         {  
             "docker_commands":[
-                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./start.sh" ,"cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_ingest.sh > ~/pw/automation/scripts/tests/PI6/data/stdout_output.txt 2>&1","cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_rnr.sh --num-hml-files 50","cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_post_process.sh > ~/pw/automation/scripts/tests/PI6/data/post_process_output.txt 2>&1","python3 /home/jyoti.mikkilineni/pw/automation/scripts/tests/utils/test_abc.py"
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./start.sh" ,
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_ingest.sh > ~/pw/automation/scripts/tests/PI6/data/stdout_output.txt 2>&1",
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_rnr.sh --num-hml-files 50",
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_post_process.sh > ~/pw/automation/scripts/tests/PI6/data/post_process_output.txt 2>&1",
+                                "python3 /home/jyoti.mikkilineni/pw/automation/scripts/tests/utils/update_notebook_details_util.py",
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=docker-rnr') bash -c 'mkdir /t-route/src/troute-rnr/auto'", 
+                                "sudo docker cp /fsxtestautomation/data_files/fims-data/view_outputs_input_nb.ipynb  $(docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/",
+                               
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=docker-rnr') bash -c 'yum install -y python3-pip && pip install papermill Pillow nbformat notebook geopandas folium matplotlib mapclassify && python3 -m ipykernel install --user && papermill /t-route/src/troute-rnr/auto/view_outputs_input_nb.ipynb /t-route/src/troute-rnr/auto/view_outputs_output_nb.ipynb > /t-route/src/troute-rnr/auto/log.txt 2>&1'",
+                                 "sudo docker cp $(docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/view_outputs_output_nb.ipynb  ~/pw/automation/scripts/tests/PI6/data && sudo docker cp $(docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/log.txt  ~/pw/automation/scripts/tests/PI6/data && sudo docker stop $(docker ps -q --filter 'ancestor=docker-rnr') && exit"
+                                
+
                             ],
-            "text" : "reading through api.weather.gov HML outputs: 100%|██████████| 5000/5000",
-            "remove_files": "~/pw/automation/scripts/tests/PI6/data/stdout_output.txt",
             "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
-            "output_notebook_location": "~/pw/automation/scripts/tests/PI4/data/run_v22_output.ipynb",
-            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/run_v22.ipynb"
+            "text" : "Executing: 100%|██████████| 6/6",
+            "output_notebook_location": "~/pw/automation/scripts/tests/PI6/data/view_outputs_output_nb.ipynb",
+            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/view_outputs_input_nb.ipynb",
+            "remove_files":"~/pw/automation/scripts/tests/PI6/data/log.txt"
         }
  
     ]

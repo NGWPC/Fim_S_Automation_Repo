@@ -186,7 +186,7 @@ def run_docker_script():
                 print(result.stdout.strip())
                 print(result.stderr)
                 # while "Processing complete! Results saved to" not in result.stdout.strip():
-                #     result =  subprocess.run(docker_command,stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
+                #     result =  subprocess.run('cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_rnr.sh --num-hml-files 50',stdout = subprocess.PIPE , stderr = subprocess.PIPE , universal_newlines = True , check = True , shell = True , executable ="/usr/bin/bash")
 
             else:
                 print(f"Running :{docker_command}")
