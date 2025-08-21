@@ -10,10 +10,10 @@ def test_fim_s_TEST_CASE_2_RnRApp_02_subcase1(test_name,load_scenario_data,scena
     # directory = fetch_directory_details(folder_name,tn,scenarios)
     # directory_util.create_directory(os.path.expanduser(directory))
 
-#     docker_commands,dir_paths = fetch_docker_details(folder_name,tn,scenarios)
-#     for docker_command in docker_commands:
-#          run_docker_script(folder_name,tn,scenarios,docker_command)
-#          print("The command ran successfully.")
+    docker_commands,dir_paths = fetch_docker_details(folder_name,tn,scenarios)
+    for docker_command in docker_commands:
+         run_docker_script(folder_name,tn,scenarios,docker_command)
+         print("The command ran successfully.")
 
 #     url,headers,request_type = run_curl_command_get(folder_name,tn,scenarios)
 #     out=validate_get_response(url,headers,data,request_type)
