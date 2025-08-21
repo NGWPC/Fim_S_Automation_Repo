@@ -3,15 +3,25 @@
  
         {  
             "docker_commands":[
-                                "cd /efs/fims/pi_3/rise && pwd && docker compose up -d --build && sleep 600"],
-           "url":"http://localhost:8000/api/v1/publish/start/CAGM7",
-
-           "headers":{ "Content-Type": "application/json"},
-           "request_type":"GET"       
+                                "cd /efs/fims/pi_3/rise && pwd && docker compose up -d --build && sleep 780",
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=rise-jupyterlab') bash -c 'mkdir /app/auto'",
+                                "sudo docker cp /fsxtestautomation/data_files/fims-data/01_build_sfincs_from_nwm_nb.ipynb  $(docker ps -q --filter 'ancestor=rise-jupyterlab'):/app/auto/",
+                                "sudo docker cp /fsxtestautomation/data_files/fims-data/02_post_process_nb.ipynb  $(docker ps -q --filter 'ancestor=rise-jupyterlab'):/app/auto/",
+                                "sudo docker cp /fsxtestautomation/data_files/fims-data/03_evaluate_fims_nb.ipynb  $(docker ps -q --filter 'ancestor=rise-jupyterlab'):/app/auto/",
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=rise-jupyterlab') bash -c 'pip install papermill'",
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=rise-jupyterlab') bash -c 'papermill /app/auto/01_build_sfincs_from_nwm_nb.ipynb /app/auto/01_build_sfincs_from_nwm_output.ipynb > /app/auto/log_build_01.txt 2>&1'",
+                                "cd /efs/fims/pi_3/rise &&  sudo ./run_sfincs.sh > /home/jyoti.mikkilineni/pw/automation/scripts/tests/PI3/data/sfincs_log.txt",
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=rise-jupyterlab') bash -c 'papermill /app/auto/02_post_process_nb.ipynb /app/auto/02_post_process_output.ipynb > /app/auto/log_build_02.txt 2>&1'",
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=rise-jupyterlab') bash -c 'papermill /app/auto/03_evaluate_fims_nb.ipynb /app/auto/03_evaluate_fims_output.ipynb > /app/auto/log_build_03.txt 2>&1'",
+                                "sudo docker cp $(docker ps -q --filter 'ancestor=rise-jupyterlab'):/app/auto/01_build_sfincs_from_nwm_output.ipynb  ~/pw/automation/scripts/tests/PI3/data && sudo docker cp $(docker ps -q --filter 'ancestor=rise-jupyterlab'):/app/auto/02_post_process_output.ipynb  ~/pw/automation/scripts/tests/PI3/data && sudo docker cp $(docker ps -q --filter 'ancestor=rise-jupyterlab'):/app/auto/03_evaluate_fims_output.ipynb  ~/pw/automation/scripts/tests/PI3/data"
+                            
+                            
+                            ],
+                            "output_notebook_location": ["~/pw/automation/scripts/tests/PI3/data/01_build_sfincs_from_nwm_output.ipynb","~/pw/automation/scripts/tests/PI3/data/03_evaluate_fims_output.ipynb"],
+                            "input_notebook_location":["/fsxtestautomation/data_files/fims-data/01_build_sfincs_from_nwm_nb.ipynb","/fsxtestautomation/data_files/fims-data/03_evaluate_fims_nb.ipynb"]      
         }
  
     ]
-
 
 
 }

@@ -15,6 +15,7 @@ import hashlib
 import pytest
 from datetime import datetime, timedelta
 from .utils.csv_util import wait_for_directory_existence
+from deepdiff import DeepDiff
 
 
 
@@ -128,7 +129,7 @@ def clean_output(output):
 def normalize_outputs(outputs):
    return [clean_output(o) for o in outputs]
 
-def compare_notebooks(nb1_path, nb2_path , skip_indices=None):
+def compare_notebooks_using_skipped_indices(nb1_path, nb2_path , skip_indices=None):
    skip_indices = set(skip_indices or [])
 
    nb1 = nbformat.read(nb1_path, as_version=4)
@@ -185,6 +186,31 @@ def fetch_generate_dynamic_files(csv_file,nc_files_base_path,csv_time_stamp,nc_t
 def file_exists_and_not_empty(file_path,file_type):
    assert os.path.exists(file_path) , f"{file_type.upper()} file missing : {file_path}"
    assert os.path.getsize(file_path)>0 , f"{file_type.upper()} file is empty : {file_path}"
+
+def compare_notebooks_using_tags(nb1_path, nb2_path , tag_name):
+   nb1 = nbformat.read(nb1_path, as_version=4)
+   nb2 = nbformat.read(nb2_path, as_version=4)
+
+   tagged_cells1 = [cell for cell in nb1.cells if target_tag in cell.metadata.get("tags",[])]
+   tagged_cells2 = [cell for cell in nb2.cells if target_tag in cell.metadata.get("tags",[])]
+
+   if len(tagged_cells1) != len(tagged_cells2):
+      raise AssertionError (f"Mismatch in number of tagged cells between  {tagged_cells1} and {tagged_cells2}")
+   differences = []
+   for i , (cell1 , cell2) in enumerate(zip(tagged_cells1,tagged_cells2)):
+       nb1_tagged_cells1_output = cell1.get("outputs",[])
+       nb2_tagged_cells2_output = cell2.get("outputs",[])
+       variation = DeepDiff(nb1_tagged_cells1_output,nb2_tagged_cells2_output, ignore_order = True , exclude_regex_path ={"root\\[\\d+\\]\\['execution_count'\\]"})
+       if variation:
+         differences.append((i,variation))
+         print(differences)
+   if differences:
+      print(differences)
+      assert False , f"Not matching due to {differences}"
+   else:
+      print("Both the notebooks match")
+       
+   
 
 
 
