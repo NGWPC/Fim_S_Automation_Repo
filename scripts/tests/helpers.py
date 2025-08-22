@@ -191,21 +191,26 @@ def compare_notebooks_using_tags(nb1_path, nb2_path , tag_name):
    nb1 = nbformat.read(nb1_path, as_version=4)
    nb2 = nbformat.read(nb2_path, as_version=4)
 
-   tagged_cells1 = [cell for cell in nb1.cells if target_tag in cell.metadata.get("tags",[])]
-   tagged_cells2 = [cell for cell in nb2.cells if target_tag in cell.metadata.get("tags",[])]
+   print(f" checking {nb1_path}")
+   print(f" checking {nb2_path}")
+
+   tagged_cells1 = [cell for cell in nb1.cells if tag_name in cell.metadata.get("tags",[])]
+   tagged_cells2 = [cell for cell in nb2.cells if tag_name in cell.metadata.get("tags",[])]
 
    if len(tagged_cells1) != len(tagged_cells2):
       raise AssertionError (f"Mismatch in number of tagged cells between  {tagged_cells1} and {tagged_cells2}")
    differences = []
    for i , (cell1 , cell2) in enumerate(zip(tagged_cells1,tagged_cells2)):
        nb1_tagged_cells1_output = cell1.get("outputs",[])
+       print(f"nb1_tagged_cells1_output: {nb1_tagged_cells1_output}")
        nb2_tagged_cells2_output = cell2.get("outputs",[])
-       variation = DeepDiff(nb1_tagged_cells1_output,nb2_tagged_cells2_output, ignore_order = True , exclude_regex_path ={"root\\[\\d+\\]\\['execution_count'\\]"})
+       print(f"nb2_tagged_cells2_output: {nb2_tagged_cells2_output}")
+       variation = DeepDiff(nb1_tagged_cells1_output,nb2_tagged_cells2_output, ignore_order = True )
        if variation:
          differences.append((i,variation))
-         print(differences)
+         # print(f"At {id} and {differences}")
    if differences:
-      print(differences)
+      # print(differences)
       assert False , f"Not matching due to {differences}"
    else:
       print("Both the notebooks match")
