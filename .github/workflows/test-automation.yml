@@ -1,1 +1,40 @@
-
+name: CI Pipeline 
+on: 
+   push: 
+     branches-ignore: 
+         - '*' 
+jobs: 
+    build: 
+        runs-on: ubuntu-latest 
+        steps: 
+            - name: Checkout code 
+              uses: actions/checkout@v3
+            - name: Build the project 
+              run: echo "Building the project"
+    test: 
+            runs-on: ubuntu-latest 
+            environment: test
+            env: 
+                GIT_STRATEGY: none
+                CLONE_DIR: "~/pw/auto" 
+                GITLAB_REPO_URL: "https://jyotipmikkilineni:${{ secrets.PAT_TOKEN }}@github.com/NGWPC/Fim_S_Automation_Repo.git" 
+            steps:
+                - name: Checkout code 
+                  uses: actions/checkout@v3 
+                - name: Setup SSH Key 
+                  run: | 
+                     echo "${{ secrets.SSH_KEY }}" > ssh_key 
+                     cat ssh_key
+                     chmod 600 ssh_key 
+                     eval $(ssh-agent -s)
+                     ssh-add ssh_key
+                - name: Update Git remote URL 
+                  run: | 
+                      git remote set-url origin $GITLAB_REPO_URL 
+                - name: Deploy to TEST
+                  run: | 
+                     echo "Deploying to TEST..."
+                     ssh -v -o StrictHostKeyChecking=no -o ConnectTimeout=30 -o PreferredAuthentications=publickey -i ssh_key jyoti.mikkilineni@10.203.111.204 << 'EOF'
+                     pwd 
+                     EOF
+                     echo "Deployed to TEST"
