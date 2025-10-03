@@ -26,4 +26,4 @@ def update_notebook_details_util(file_name):
     nbformat.write(nb,notebook_path)
     logging.info(f"Updated the {notebook_path}")
 
-test_abc(file_name)
+# test_abc(file_name)

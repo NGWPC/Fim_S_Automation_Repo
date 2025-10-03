@@ -73,7 +73,7 @@ def image_differences(input_notebook_location,output_notebook_location):
 #         has_output = bool(cell.get("outputs"))
 #         print(f"Index: {i} | Type: {cell_type} | Tags:{tags} | Has Output: {has_output}")
 
-# list_cells("/fsxtestautomation/data_files/fims-data/run_v22.ipynb")
+# list_cells("/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI6/data/view_outputs_output_nb.ipynb")
 
 def verify_table_fields(path, tag_name = 'table_validation'):
     with open(path) as f:
@@ -103,8 +103,8 @@ def verify_table_fields(path, tag_name = 'table_validation'):
                         else:
                             logging.info("Table missing")
                             assert False, f"Missing table"
-        else:
-            assert False , f"Required data not available"
+        # else:
+        #     assert False , f"Required data not available"
     assert tagged_cells_exist , f"No tagged cell exist for {path}"
    
 

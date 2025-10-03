@@ -8,7 +8,7 @@
                                 "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_rnr.sh --num-hml-files 50",
                                 "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_post_process.sh > ~/pw/automation/scripts/tests/PI6/data/post_process_output.txt 2>&1",
                                 "python3 /home/jyoti.mikkilineni/pw/automation/scripts/tests/utils/update_notebook_details_util.py",
-                                "sudo docker exec $(docker ps -q --filter 'ancestor=docker-rnr') bash -c 'mkdir /t-route/src/troute-rnr/auto'", 
+                                "sudo docker exec $(docker ps -q --filter 'ancestor=docker-rnr') bash -c 'mkdir -p /t-route/src/troute-rnr/auto'", 
                                 "sudo docker cp /fsxtestautomation/data_files/fims-data/view_outputs_input_nb.ipynb  $(docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/",
                                
                                 "sudo docker exec $(docker ps -q --filter 'ancestor=docker-rnr') bash -c 'yum install -y python3-pip && pip install papermill Pillow nbformat notebook geopandas folium matplotlib mapclassify && python3 -m ipykernel install --user && papermill /t-route/src/troute-rnr/auto/view_outputs_input_nb.ipynb /t-route/src/troute-rnr/auto/view_outputs_output_nb.ipynb > /t-route/src/troute-rnr/auto/log.txt 2>&1'",
