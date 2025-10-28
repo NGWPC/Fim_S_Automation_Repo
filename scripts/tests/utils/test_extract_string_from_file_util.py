@@ -4,6 +4,7 @@ def test_extract_name():
         out = f.read()
     # file = '/home/jyoti.mikkilineni/pw/automation/scripts/tests/PI6/data/post_process_output.txt'
     last_line = out.strip().split('\n')[-1]
+    print(last_line)
     match = re.search(r'([\w\-:\.]+\.csv)',last_line)
     # assert match is not None, f"csv file not found"
     # csv_filename = match.group(0)
@@ -11,6 +12,7 @@ def test_extract_name():
     # print(csv_filename)
     if match:
         file_name = match.group(1)
+        print(file_name)
         return file_name
     else :
         raise ValueError(f"No csv filname found in {last_line}")

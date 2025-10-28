@@ -6,12 +6,14 @@ import logging
 file_name = test_extract_string_from_file_util.test_extract_name()
 
 def update_notebook_details_util(file_name):
-    logging.info(f"This is is is {file_name}")
+    print(f"This is is is {file_name}")
+    print("Here")
     notebook_path = "/fsxtestautomation/data_files/fims-data/view_outputs_input_nb.ipynb"
     nb = nbformat.read(notebook_path , as_version=4)
     tag_name = "update_filename"
     existing_filename = '"output_inundation_2025-06-06_14:28:32.csv"'
     updated_filename = file_name
+    print(f"Updated:{updated_filename}")
 
     for cell in nb.cells:
         if cell.cell_type == 'code':
@@ -27,3 +29,4 @@ def update_notebook_details_util(file_name):
     logging.info(f"Updated the {notebook_path}")
 
 # test_abc(file_name)
+update_notebook_details_util(file_name)

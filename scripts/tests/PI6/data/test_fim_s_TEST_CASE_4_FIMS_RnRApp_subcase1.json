@@ -3,16 +3,16 @@
  
         {  
             "docker_commands":[
-                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./start.sh" ,
-                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_ingest.sh > ~/pw/automation/scripts/tests/PI6/data/stdout_output.txt 2>&1",
-                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_rnr.sh --num-hml-files 50",
-                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& ./run_post_process.sh > ~/pw/automation/scripts/tests/PI6/data/post_process_output.txt 2>&1",
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& sudo ./start.sh" ,
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& sudo ./run_ingest.sh > ~/pw/automation/scripts/tests/PI6/data/stdout_output.txt 2>&1",
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& sudo ./run_rnr.sh --num-hml-files 50",
+                                "cd /efs/fims/pi_6/hydrovis/Source/docker&& sudo ./run_post_process.sh > ~/pw/automation/scripts/tests/PI6/data/post_process_output.txt 2>&1",
                                 "python3 /home/jyoti.mikkilineni/pw/automation/scripts/tests/utils/update_notebook_details_util.py",
-                                "sudo docker exec $(docker ps -q --filter 'ancestor=docker-rnr') bash -c 'mkdir -p /t-route/src/troute-rnr/auto'", 
-                                "sudo docker cp /fsxtestautomation/data_files/fims-data/view_outputs_input_nb.ipynb  $(docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/",
+                                "sudo docker exec $(sudo docker ps -q --filter 'ancestor=docker-rnr') bash -c 'mkdir -p /t-route/src/troute-rnr/auto'", 
+                                "sudo docker cp /fsxtestautomation/data_files/fims-data/view_outputs_input_nb.ipynb  $(sudo docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/",
                                
-                                "sudo docker exec $(docker ps -q --filter 'ancestor=docker-rnr') bash -c 'yum install -y python3-pip && pip install papermill Pillow nbformat notebook geopandas folium matplotlib mapclassify && python3 -m ipykernel install --user && papermill /t-route/src/troute-rnr/auto/view_outputs_input_nb.ipynb /t-route/src/troute-rnr/auto/view_outputs_output_nb.ipynb > /t-route/src/troute-rnr/auto/log.txt 2>&1'",
-                                 "sudo docker cp $(docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/view_outputs_output_nb.ipynb  ~/pw/automation/scripts/tests/PI6/data && sudo docker cp $(docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/log.txt  ~/pw/automation/scripts/tests/PI6/data && sudo docker stop $(docker ps -q --filter 'ancestor=docker-rnr') && exit"
+                                "sudo docker exec $(sudo docker ps -q --filter 'ancestor=docker-rnr') bash -c 'yum install -y python3-pip && pip install papermill Pillow nbformat notebook geopandas folium matplotlib mapclassify && python3 -m ipykernel install --user && papermill /t-route/src/troute-rnr/auto/view_outputs_input_nb.ipynb /t-route/src/troute-rnr/auto/view_outputs_output_nb.ipynb > /t-route/src/troute-rnr/auto/log.txt 2>&1'",
+                                 "sudo docker cp $(sudo docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/view_outputs_output_nb.ipynb  ~/pw/automation/scripts/tests/PI6/data && sudo docker cp $(sudo docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/log.txt  ~/pw/automation/scripts/tests/PI6/data"
                                 
 
                             ],

@@ -1,0 +1,31 @@
+{
+    "additional_data":[
+ 
+        {  
+            "docker_commands":[
+                                "cd /efs/edfs-deliveries/pi_7/subcase_3_RnR/hydrovis/Source/docker&& sudo ./start.sh" ,
+                                "cd /efs/edfs-deliveries/pi_7/subcase_3_RnR/hydrovis/Source/docker&& sudo ./run_ingest.sh > ~/pw/automation/scripts/tests/PI7/data/stdout_output.txt 2>&1",
+                                "cd /efs/edfs-deliveries/pi_7/subcase_3_RnR/hydrovis/Source/docker&& sudo ./run_rnr.sh --num-hml-files 50",
+                                "cd /efs/edfs-deliveries/pi_7/subcase_3_RnR/hydrovis/Source/docker&& sudo ./run_post_process.sh > ~/pw/automation/scripts/tests/PI7/data/post_process_output.txt 2>&1",
+                                "python3 /home/jyoti.mikkilineni/pw/automation/scripts/tests/utils/update_notebook_details_util.py",
+                                "sudo docker exec $(sudo docker ps -q --filter 'ancestor=docker-rnr') bash -c 'mkdir -p /t-route/src/troute-rnr/auto'", 
+                                "sudo docker cp /fsxtestautomation/data_files/fims-data/view_pi7_outputs_input_nb.ipynb  $(sudo docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/",
+                               
+                                "sudo docker exec $(sudo docker ps -q --filter 'ancestor=docker-rnr') bash -c 'yum install -y python3-pip && yum install -y geos proj gdal && pip install --force-reinstall shapely geopandas && pip install papermill Pillow nbformat notebook geopandas folium matplotlib mapclassify && python3 -m ipykernel install --user && papermill /t-route/src/troute-rnr/auto/view_pi7_outputs_input_nb.ipynb /t-route/src/troute-rnr/auto/view_pi7_outputs_output_nb.ipynb -k python3> /t-route/src/troute-rnr/auto/log.txt 2>&1'",
+                               
+                                 "sudo docker cp $(sudo docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/view_pi7_outputs_output_nb.ipynb  ~/pw/automation/scripts/tests/PI7/data && sudo docker cp $(sudo docker ps -q --filter 'ancestor=docker-rnr'):/t-route/src/troute-rnr/auto/log.txt  ~/pw/automation/scripts/tests/PI7/data && sudo docker stop $(sudo docker ps -q --filter 'ancestor=docker-rnr') && exit"
+                                
+
+                            ],
+            "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
+            "text" : "Executing: 100%|██████████| 7/7",
+            "output_notebook_location": "~/pw/automation/scripts/tests/PI7/data/view_pi7_outputs_output_nb.ipynb",
+            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/view_pi7_outputs_input_nb.ipynb",
+            "remove_files":"~/pw/automation/scripts/tests/PI7/data/log.txt"
+        }
+ 
+    ]
+
+
+
+}
