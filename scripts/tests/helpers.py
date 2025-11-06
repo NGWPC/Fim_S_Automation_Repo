@@ -186,6 +186,7 @@ def fetch_generate_dynamic_files(csv_file,nc_files_base_path,csv_time_stamp,nc_t
 def file_exists_and_not_empty(file_path,file_type):
    assert os.path.exists(file_path) , f"{file_type.upper()} file missing : {file_path}"
    assert os.path.getsize(file_path)>0 , f"{file_type.upper()} file is empty : {file_path}"
+   logging.info(f"filepath: {file_path} is valid")
 
 def compare_notebooks_using_tags(nb1_path, nb2_path , tag_name):
    nb1 = nbformat.read(nb1_path, as_version=4)
@@ -214,6 +215,13 @@ def compare_notebooks_using_tags(nb1_path, nb2_path , tag_name):
       assert False , f"Not matching due to {differences}"
    else:
       print("Both the notebooks match")
+
+
+def fetch_latest_file(base_directory):
+   files_in_directory = [os.path.join(base_directory,file) for file in os.listdir(base_directory) if os.path.isfile(os.path.join(base_directory,file))]
+   if not files_in_directory:
+      raise FileNotFoundError(f"No files found at {base_directory}")
+   return max(files_in_directory, key=os.path.getmtime)
        
    
 
