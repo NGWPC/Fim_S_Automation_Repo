@@ -1,0 +1,19 @@
+{
+    "additional_data":[
+ 
+        {  
+            "docker_commands":[
+                                "uv venv --python 3.12 --clear",
+                                "source .venv/bin/activate&& cd /efs/edfs-deliveries/pi_7/subcase_5_CNN/f1-trainer&& uv sync --active&& python -m scripts.make_eval"
+                                
+
+                            ],
+            "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
+            "remove_files":"/efs/edfs-deliveries/pi_7/subcase_5_CNN/f1-trainer/runs/0.1.0-f1-mvp/2025-09-15_21-03-11/preds"
+        }
+ 
+    ]
+
+
+
+}
