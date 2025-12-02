@@ -4,13 +4,23 @@
         {  
             "docker_commands":[
                                
-                                
+                       "cd /efs/edfs-deliveries/pi_7/subcase_4_CNN && PATH=\"/usr/local/bin:$PATH/\" ./build_subcase_auto.sh",
+                       "uv venv --python 3.12 --clear",
+                    "source .venv/bin/activate&& cd /efs/edfs-deliveries/pi_7/subcase_4_CNN/f1-trainer/examples && uv sync --active",
+                    "curl -O https://bootstrap.pypa.io/get-pip.py",
+                    "~/.venv/bin/python get-pip.py",
+                    "~/.venv/bin/python -m pip install --upgrade matplotlib",
+                    "~/.venv/bin/pip install papermill ipykernel seaborn pandas",
+                    "~/.venv/bin/python -m papermill --version",
+                    "cp /fsxtestautomation/data_files/fims-data/fim_eval_input.ipynb ~/pi_7/subcase_4_CNN/f1-trainer/examples",
+                    "cd ~/pi_7/subcase_4_CNN/f1-trainer/examples && ~/.venv/bin/python -m papermill fim_eval_input.ipynb  /home/jyoti.mikkilineni/pw/automation/scripts/tests/PI7/data/fim_eval_output.ipynb"
 
                             ],
             "base_directory":"/efs/edfs-deliveries/pi_7/subcase_4_CNN",
             "shell_script":"build_subcase.sh",
             "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
-            "remove_files":"/efs/edfs-deliveries/pi_7/subcase_5_CNN/f1-trainer/runs/0.1.0-f1-mvp/2025-09-15_21-03-11/preds"
+            "output_notebook_location": "~/pw/automation/scripts/tests/PI7/data/fim_eval_output.ipynb",
+            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/fim_eval_input.ipynb"
         }
  
     ]
