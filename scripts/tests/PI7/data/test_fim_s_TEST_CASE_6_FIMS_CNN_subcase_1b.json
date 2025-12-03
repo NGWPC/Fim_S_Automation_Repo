@@ -4,7 +4,8 @@
         {  
             "docker_commands":[
                                 "uv venv --python 3.12 --clear",
-                                "source .venv/bin/activate&& cd /efs/edfs-deliveries/pi_7/subcase_1_CNN/f1-trainer&& python -m scripts.make_eval --config-name eval_config_forecast"
+                                "source .venv/bin/activate&& cd /efs/edfs-deliveries/pi_7/subcase_1_CNN/f1-trainer && uv sync --active",
+                                "python -m scripts.make_eval --config-name eval_config_forecast"
                                 
 
                             ],
