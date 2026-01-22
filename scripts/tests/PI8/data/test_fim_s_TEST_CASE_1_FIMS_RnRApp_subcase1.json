@@ -3,8 +3,10 @@
  
         {  
             "docker_commands":[
-                                "sudo /efs/edfs-deliveries/pi_8/fims_subcase_1/run_troute.sh" ,
-                                "sudo /efs/edfs-deliveries/pi_8/fims_subcase_1/start_jupyter.sh "
+                                "/efs/edfs-deliveries/pi_8/fims_subcase_1/run_troute.sh",
+                                
+                                "~/start_jupyter.sh"
+
                                
                                 
 
