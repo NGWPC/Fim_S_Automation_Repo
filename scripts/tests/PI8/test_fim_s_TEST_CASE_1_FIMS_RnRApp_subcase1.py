@@ -11,6 +11,8 @@ def test_fim_s_TEST_CASE_1_FIMS_RnRApp_subcase1(test_name,load_scenario_data,sce
     for docker_command in docker_commands:
          run_docker_script(folder_name,tn,scenarios,docker_command)
          print("The command ran successfully.")
+    input_notebook_location, output_notebook_location = fetch_notebook_location_details(folder_name,tn,scenarios)
+    compare_images_util.image_differences(input_notebook_location,os.path.expanduser(output_notebook_location))
 #     text,dir_paths = fetch_txt_details(folder_name,tn,scenarios)
 #     txt_file_validation_util.txt_file_validation(text,os.path.expanduser(dir_paths))
 #     input_notebook_location, output_notebook_location = fetch_notebook_location_details(folder_name,tn,scenarios)

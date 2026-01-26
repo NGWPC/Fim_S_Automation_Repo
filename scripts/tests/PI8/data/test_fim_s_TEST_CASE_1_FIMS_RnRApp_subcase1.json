@@ -3,18 +3,22 @@
  
         {  
             "docker_commands":[
-                                "/efs/edfs-deliveries/pi_8/fims_subcase_1/run_troute.sh",
-                                
-                                "~/start_jupyter.sh"
-
-                               
-                                
+                              
+                                "python3 -m venv .venv",
+                                "source .venv/bin/activate",
+                                "curl -O https://bootstrap.pypa.io/pip/3.6/get-pip.py",
+                                "~/.venv/bin/python get-pip.py",
+                                "~/.venv/bin/python -m pip install --upgrade matplotlib",
+                                "~/.venv/bin/pip install papermill ipykernel seaborn pandas folium geopandas",                    
+                                "~/.venv/bin/python -m papermill --version",
+                              
+                    "~/.venv/bin/papermill ~/Downloads/view_output_input_pi8.ipynb  /home/jyoti.mikkilineni/pw/automation/scripts/tests/PI8/data/view_output_output_pi8.ipynb -k venv"
 
                             ],
             "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
             "text" : "Executing: 100%|██████████| 6/6",
-            "output_notebook_location": "~/pw/automation/scripts/tests/PI6/data/view_outputs_output_nb.ipynb",
-            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/view_outputs_input_nb.ipynb",
+            "output_notebook_location": "~/pw/automation/scripts/tests/PI8/data/view_output_output_pi8.ipynb",
+            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/view_output_input_pi8.ipynb",
             "remove_files":"~/pw/automation/scripts/tests/PI6/data/log.txt"
         }
  
