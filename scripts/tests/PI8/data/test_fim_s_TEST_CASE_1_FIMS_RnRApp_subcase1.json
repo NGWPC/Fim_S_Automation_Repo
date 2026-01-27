@@ -5,24 +5,14 @@
             "docker_commands":[
                                 "/efs/edfs-deliveries/pi_8/fims_subcase_1/run_troute.sh",
                                 "/fsxtestautomation/data_files/fims-data/start_jupyter.sh",
-                                "wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-x86_64.sh",
-                                "rm -rf $HOME/miniforge/_conda",
-                                "bash Miniforge3-Linux-x86_64.sh -b -u -p $HOME/miniforge",
-                                "export PATH='$HOME/miniforge/bin:$PATH'",
-                                "conda create -n geo_py310 python=3.10 -y",
-                                "$HOME/miniforge/bin/conda init bash",
-                                "source $HOME/miniforge/bin/activate",
-                                "conda install -c conda-forge geopandas folium papermill xarray netcdf4 h5netcdf ipykernel -y",
-                                 "python -m ipykernel install --user --name geo_py310 --display-name 'Python 3.10'",  
-                                 "source $HOME/miniforge/bin/activate geo_py310",                
-                              
-                    "papermill ~/Downloads/view_output_input_pi8.ipynb  /home/jyoti.mikkilineni/pw/automation/scripts/tests/PI8/data/view_output_output_pi8.ipynb -k geo_py310"
+                               "/efs/test_automation/miniforge/bin/conda run -n geo_py310 python --version",
+                    "/efs/test_automation/miniforge/bin/conda run -n geo_py310 papermill /fsxtestautomation/data_files/fims-data/view_output_input_pi8_updated.ipynb  /home/jyoti.mikkilineni/pw/automation/scripts/tests/PI8/data/view_output_output_pi8.ipynb"
 
                             ],
             "remove_file_shell_script": "~/pw/automation/scripts/tests/utils/remove_file.sh",
             "text" : "Executing: 100%|██████████| 6/6",
             "output_notebook_location": "~/pw/automation/scripts/tests/PI8/data/view_output_output_pi8.ipynb",
-            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/view_output_input_pi8.ipynb",
+            "input_notebook_location":"/fsxtestautomation/data_files/fims-data/view_output_input_pi8_updated.ipynb",
             "remove_files":"~/pw/automation/scripts/tests/PI6/data/log.txt"
         }
  
